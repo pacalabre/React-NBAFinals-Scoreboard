@@ -1,9 +1,8 @@
 function Application() {
 	return (
-		<section className="app-section">
+		<main className="app-section">
 			<h3 className="game-number">Game 1</h3>
 			<h4 className="game-date">Thursday, June 1</h4>
-		
 			<section className="section-cle">
 				<img className="team-logo" src="./images/cavs.png" />
 				<section className="section-cle-score">
@@ -20,8 +19,7 @@ function Application() {
 			</section>
 			<h2 className="series-score">FINAL</h2>
 			<h5 className="series-score">CLE 0 Games GSW 1</h5>
-
-		</section>
+		</main>
 		)
 }
 
