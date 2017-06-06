@@ -2,6 +2,15 @@ body {
 	background-color: #2c3e50;
 }
 
+.section-nba-logo {
+	text-align: center;
+}
+
+.nba-logo-img {
+	height: 200px;
+	margin: 10px auto 0 auto;
+}
+
 .app-section {
 	border: solid thin #ecf0f1;
 	font-family:  arial;
