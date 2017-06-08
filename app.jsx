@@ -1,3 +1,15 @@
+var GAME = [
+	{
+		homeTeamName: "GSWs",
+		homeTeamScore: "113",
+		homeTeamLogo: "./images/gsw.png",
+		awayTeamName: "Cavs",
+		awayTeamScore: "91",
+		awayTeamLogo: "./images/cavs.png"
+	}
+	
+]
+
 function Gametime(props) {
 	return (
 		<section>
@@ -7,10 +19,10 @@ function Gametime(props) {
 	)
 }
 
-function CavsScore(props) {
+function TeamScoreBoard(props) {
 	return (
 		<section className="section-cle">
-			<img className="team-logo" src="./images/cavs.png" />
+			<img className="team-logo" src={props.img}  />
 			<section className="section-cle-score">
 				<h2 className="section-h2">{props.team}</h2>
 				<h4 className="score">{props.score}</h4>
@@ -19,17 +31,17 @@ function CavsScore(props) {
 	)
 }
 
-function GSWScore(props) {
-	return (
-		<section className="section-gsw">
-			<img className="team-logo" src="./images/gsw.png" />
-			<section  className="section-gsw-score">
-				<h2 className="section-h2">{ props.team }</h2>
-				<h4 className="score">{ props.score }</h4>
-			</section>
-		</section>
-	)
-}
+// function GSWScore(props) {
+// 	return (
+// 		<section className="section-gsw">
+// 			<img className="team-logo" src="./images/gsw.png" />
+// 			<section  className="section-gsw-score">
+// 				<h2 className="section-h2">{ props.team }</h2>
+// 				<h4 className="score">{ props.score }</h4>
+// 			</section>
+// 		</section>
+// 	)
+// }
 
 function SeriesScore(props) {
 	return (
@@ -41,15 +53,23 @@ function SeriesScore(props) {
 }
 
 
-function Application() {
+function Application(props) {
 	return (
 		<main className="app-section">
 			<Gametime game="Game 1" gameday="Thursday, June 1" />
-			<CavsScore team="Cavs" score="91" />
-			<GSWScore team="GSW" score="113" />
+			
+			{props.game.map(function(game){
+				return (
+				<section>
+				 	<TeamScoreBoard team={game.homeTeamName} score={game.homeTeamScore} img={game.homeTeamLogo} />
+				 	<TeamScoreBoard team={game.awayTeamName} score={game.awayTeamScore} img={game.awayTeamLogo} />
+				 </section>
+				 )
+			})}
+			
 			<SeriesScore timeleft="FINAL" seriesScore="CLE 0 Games GSW 1" />
 		</main>
 		)
 }
 
-ReactDOM.render(<Application />, document.getElementById('container'));
+ReactDOM.render(<Application game={ GAME } />, document.getElementById('container'));
