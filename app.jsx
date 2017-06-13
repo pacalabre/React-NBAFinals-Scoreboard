@@ -1,6 +1,7 @@
 var GAME = [
 	{
 		gameNum: "Game 1",
+		gameDay: "June 1",
 		homeTeamName: "GSW",
 		homeTeamScore: "113",
 		homeTeamLogo: "./images/gsw.png",
@@ -11,6 +12,7 @@ var GAME = [
 	},
 	{
 		gameNum: "Game 2",
+		gameDay: "June 4",
 		homeTeamName: "GSW",
 		homeTeamScore: "132",
 		homeTeamLogo: "./images/gsw.png",
@@ -21,6 +23,7 @@ var GAME = [
 	},
 	{
 		gameNum: "Game 3",
+		gameDay: "June 7",
 		homeTeamName: "GSW",
 		homeTeamScore: "118",
 		homeTeamLogo: "./images/gsw.png",
@@ -31,6 +34,7 @@ var GAME = [
 	},
 	{
 		gameNum: "Game 4",
+		gameDay: "June 9",
 		homeTeamName: "GSW",
 		homeTeamScore: "116",
 		homeTeamLogo: "./images/gsw.png",
@@ -92,7 +96,7 @@ function Application(props) {
 			{props.game.map(function(game){
 				return (
 					<main className="app-section">
-						<Gametime game={game.gameNum} gameday="Thursday, June 1" />
+						<Gametime game={game.gameNum} gameday={game.gameDay} />
 					 	<TeamScoreBoard team={game.homeTeamName} score={game.homeTeamScore} img={game.homeTeamLogo} />
 					 	<TeamScoreBoard team={game.awayTeamName} score={game.awayTeamScore} img={game.awayTeamLogo} />
 					 	<SeriesScore timeleft="FINAL" seriesScore={game.seriesScore} />
