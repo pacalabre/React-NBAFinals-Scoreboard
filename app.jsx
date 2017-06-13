@@ -93,18 +93,19 @@ function SeriesScore(props) {
 function Application(props) {
 	return (
 		<div>
-			{props.game.map(function(game){
+			{props.gameApp.map(function(gameParam){
 				return (
 					<main className="app-section">
-						<Gametime game={game.gameNum} gameday={game.gameDay} />
-					 	<TeamScoreBoard team={game.homeTeamName} score={game.homeTeamScore} img={game.homeTeamLogo} />
-					 	<TeamScoreBoard team={game.awayTeamName} score={game.awayTeamScore} img={game.awayTeamLogo} />
-					 	<SeriesScore timeleft="FINAL" seriesScore={game.seriesScore} />
+						<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay} />
+					 	<TeamScoreBoard team={gameParam.homeTeamName} score={gameParam.homeTeamScore} img={gameParam.homeTeamLogo} />
+					 	<TeamScoreBoard team={gameParam.awayTeamName} score={gameParam.awayTeamScore} img={gameParam.awayTeamLogo} />
+					 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
 					 </main>
-					 )
-				})}
+				)
+			})}
 		</div>
 	)
 }
 
-ReactDOM.render(<Application game={ GAME } />, document.getElementById('container'));
+ReactDOM.render(<Application gameApp={ GAME } />, document.getElementById('container'));
+
