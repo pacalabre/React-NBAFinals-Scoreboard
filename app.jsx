@@ -1,12 +1,45 @@
 var GAME = [
 	{
-		homeTeamName: "GSWs",
+		gameNum: "Game 1",
+		homeTeamName: "GSW",
 		homeTeamScore: "113",
 		homeTeamLogo: "./images/gsw.png",
 		awayTeamName: "Cavs",
 		awayTeamScore: "91",
-		awayTeamLogo: "./images/cavs.png"
+		awayTeamLogo: "./images/cavs.png",
+		seriesScore: "CLE 0 Games GSW 1"
+	},
+	{
+		gameNum: "Game 2",
+		homeTeamName: "GSW",
+		homeTeamScore: "132",
+		homeTeamLogo: "./images/gsw.png",
+		awayTeamName: "Cavs",
+		awayTeamScore: "113",
+		awayTeamLogo: "./images/cavs.png",
+		seriesScore: "CLE 0 Games GSW 2"
+	},
+	{
+		gameNum: "Game 3",
+		homeTeamName: "GSW",
+		homeTeamScore: "118",
+		homeTeamLogo: "./images/gsw.png",
+		awayTeamName: "Cavs",
+		awayTeamScore: "113",
+		awayTeamLogo: "./images/cavs.png",
+		seriesScore: "CLE 0 Games GSW 3"
+	},
+	{
+		gameNum: "Game 4",
+		homeTeamName: "GSW",
+		homeTeamScore: "116",
+		homeTeamLogo: "./images/gsw.png",
+		awayTeamName: "Cavs",
+		awayTeamScore: "137",
+		awayTeamLogo: "./images/cavs.png",
+		seriesScore: "CLE 1 Games GSW 3"
 	}
+
 	
 ]
 
@@ -55,21 +88,19 @@ function SeriesScore(props) {
 
 function Application(props) {
 	return (
-		<main className="app-section">
-			<Gametime game="Game 1" gameday="Thursday, June 1" />
-			
+		<div>
 			{props.game.map(function(game){
 				return (
-				<section>
-				 	<TeamScoreBoard team={game.homeTeamName} score={game.homeTeamScore} img={game.homeTeamLogo} />
-				 	<TeamScoreBoard team={game.awayTeamName} score={game.awayTeamScore} img={game.awayTeamLogo} />
-				 </section>
-				 )
-			})}
-			
-			<SeriesScore timeleft="FINAL" seriesScore="CLE 0 Games GSW 1" />
-		</main>
-		)
+					<main className="app-section">
+						<Gametime game={game.gameNum} gameday="Thursday, June 1" />
+					 	<TeamScoreBoard team={game.homeTeamName} score={game.homeTeamScore} img={game.homeTeamLogo} />
+					 	<TeamScoreBoard team={game.awayTeamName} score={game.awayTeamScore} img={game.awayTeamLogo} />
+					 	<SeriesScore timeleft="FINAL" seriesScore={game.seriesScore} />
+					 </main>
+					 )
+				})}
+		</div>
+	)
 }
 
 ReactDOM.render(<Application game={ GAME } />, document.getElementById('container'));
