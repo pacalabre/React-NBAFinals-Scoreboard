@@ -1,3 +1,11 @@
+/* 
+Next Steps:
+ - Add Proptypes
+ - Add in state
+ - Get the inital state from the props
+ - Add in a button to each team to add and remove points from the scoreboards
+*/
+
 var GAME = [
 	{
 		gameNum: "Game 1",
@@ -42,9 +50,18 @@ var GAME = [
 		awayTeamScore: "137",
 		awayTeamLogo: "./images/cavs.png",
 		seriesScore: "CLE 1 Games GSW 3"
-	}
-
-	
+	},
+	{
+		gameNum: "Game 5",
+		gameDay: "June 9",
+		homeTeamName: "GSW",
+		homeTeamScore: "129",
+		homeTeamLogo: "./images/gsw.png",
+		awayTeamName: "Cavs",
+		awayTeamScore: "120",
+		awayTeamLogo: "./images/cavs.png",
+		seriesScore: "CLE 1 Games GSW 4"
+	},
 ]
 
 function Gametime(props) {
