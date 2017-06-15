@@ -71,8 +71,8 @@ var GAME = [
 function Gametime(props) {
 	return (
 		<section>
-			<h3 className="game-number">{props.gameNum}</h3>
-			<h4 className="game-date">{props.gameDay}</h4>
+			<h3 className="game-number">{props.game}</h3>
+			<h4 className="game-date">{props.gameday}</h4>
 		</section>
 	)
 }
@@ -120,7 +120,7 @@ function Application(props) {
 			{props.gameApp.map(function(gameParam){
 				return (
 					<main className="app-section" key={gameParam.id}>
-						<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay}  />
+						<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay} />
 					 	<TeamScoreBoard team={gameParam.homeTeamName} score={gameParam.homeTeamScore} img={gameParam.homeTeamLogo} />
 					 	<TeamScoreBoard team={gameParam.awayTeamName} score={gameParam.awayTeamScore} img={gameParam.awayTeamLogo} />
 					 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
