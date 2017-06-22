@@ -91,13 +91,24 @@ var Score = React.createClass({
 		}
 	},
 
+	incrementScore: function() {
+		console.log("+1");
+	},
+
+	decrementScore: function() {
+		console.log("-1");
+	},
+
 	render: function() {
 		return (
 			<section>
+				<button className="change-score" onClick={this.incrementScore}>+</button>
 				<h4 className="score">{this.state.scoreboard}</h4>
+				<button className="change-score" onClick={this.decrementScore}>-</button>
 			</section>
 		)
 	}
+
 })
 
 

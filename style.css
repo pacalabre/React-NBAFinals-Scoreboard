@@ -54,6 +54,13 @@ body {
 	margin: 0 5px;
 }
 
+.change-score {
+	color: white;
+	font-size: 20px;
+	border: none;
+	background: transparent;
+}
+
 .section-cle-score {
 	float: right;
 }
