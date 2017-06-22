@@ -92,11 +92,15 @@ var Score = React.createClass({
 	},
 
 	incrementScore: function() {
-		console.log("+1");
+		this.setState ({
+			scoreboard: this.state.scoreboard+=1
+		})
 	},
 
 	decrementScore: function() {
-		console.log("-1");
+		this.setState ({
+			scoreboard: this.state.scoreboard-1
+		})
 	},
 
 	render: function() {
