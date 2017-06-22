@@ -82,12 +82,12 @@ Gametime.propTypes = {
 
 var Score = React.createClass({
 	propTypes: {
-		initialScoreboard: React.PropTypes.number.isRequired
+		scoreboard: React.PropTypes.number.isRequired
 	},
 
 	getInitialState: function() {
 		return {
-			scoreboard: this.props.initialScoreboard
+			scoreboard: this.props.scoreboard
 		}
 	},
 
@@ -122,7 +122,7 @@ function TeamScoreBoard(props) {
 			<img className="team-logo" src={props.img}  />
 			<section className="section-cle-score">
 				<h2 className="section-h2">{props.team}</h2>
-				<Score initialScoreboard={props.score} />
+				<Score scoreboard={props.score} />
 			</section>
 		</section>
 	)
