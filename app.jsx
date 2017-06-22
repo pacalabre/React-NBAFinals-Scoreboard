@@ -1,7 +1,5 @@
 /* 
 Next Steps:
- - Add in state
- - Get the inital state from the props
  - Add in a button to each team to add and remove points from the scoreboards
 */
 
@@ -82,13 +80,34 @@ Gametime.propTypes = {
 	gameday: React.PropTypes.string.isRequired
 }
 
+var Score = React.createClass({
+	propTypes: {
+		scoreboard: React.PropTypes.number.isRequired
+	},
+
+	getInitialState: function() {
+		return {
+			scoreboard: this.props.scoreboard,
+		}
+	},
+
+	render: function() {
+		return (
+			<section>
+				<h4 className="score">{this.state.scoreboard}</h4>
+			</section>
+		)
+	}
+})
+
+
 function TeamScoreBoard(props) {
 	return (
 		<section className="section-cle">
 			<img className="team-logo" src={props.img}  />
 			<section className="section-cle-score">
 				<h2 className="section-h2">{props.team}</h2>
-				<h4 className="score">{props.score}</h4>
+				<Score scoreboard={props.score} />
 			</section>
 		</section>
 	)
