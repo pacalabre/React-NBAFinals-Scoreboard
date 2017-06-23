@@ -83,9 +83,9 @@ Gametime.propTypes = {
 function Score(props) {
 	return (
 		<section>
-			<button className="change-score" >+</button>
+			<button className="change-score" onClick={ function(){props.onScoreChange(+1)} } >+</button>
 			<h4 className="score">{props.scoreboard}</h4>
-			<button className="change-score" >-</button>
+			<button className="change-score" onClick={ function(){props.onScoreChange(-1)} }>-</button>
 		</section>
 	)
 }
@@ -101,7 +101,7 @@ function TeamScoreBoard(props) {
 			<img className="team-logo" src={props.img}  />
 			<section className="section-cle-score">
 				<h2 className="section-h2">{props.team}</h2>
-				<Score scoreboard={props.score} />
+				<Score scoreboard={props.score} onScoreChange={ props.scoreChangeToState } />
 			</section>
 		</section>
 	)
@@ -148,19 +148,33 @@ var Application = React.createClass ({
 		}
 	},
 
+	scoreChangeToState : function(amountToChange, index) {
+		console.log("the state changed yo!", amountToChange, index);
+	},
+
 	render: function() {
 		return (
 			<section>
-				{this.state.initialGameStats.map(function(gameParam){
+				{this.state.initialGameStats.map(function(gameParam, index){
 					return (
 						<section className="app-section" key={gameParam.id}>
 							<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay} />
-						 	<TeamScoreBoard team={gameParam.homeTeamName} score={gameParam.homeTeamScore} img={gameParam.homeTeamLogo} />
-						 	<TeamScoreBoard team={gameParam.awayTeamName} score={gameParam.awayTeamScore} img={gameParam.awayTeamLogo} />
+						 	<TeamScoreBoard 
+						 		team={gameParam.homeTeamName} 
+						 		score={gameParam.homeTeamScore} 
+						 		img={gameParam.homeTeamLogo} 
+						 		scoreChangeToState={ function(passPropToFunc){this.scoreChangeToState(index, passPropToFunc)}.bind(this) }
+						 		/>
+						 	<TeamScoreBoard 
+						 		team={gameParam.awayTeamName} 
+						 		score={gameParam.awayTeamScore} 
+						 		img={gameParam.awayTeamLogo}
+						 		scoreChangeToState={function(passPropToFunc){this.scoreChangeToState(index, passPropToFunc)}.bind(this) } 
+						 		 />
 						 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
 						 </section>
 					)
-				})}
+				}.bind(this))}
 			</section>
 		)
 		
