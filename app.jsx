@@ -1,7 +1,6 @@
-/* 
-Next Steps:
- - Add in a button to each team to add and remove points from the scoreboards
-*/
+// Next Steps:
+// Move the state to the application 
+// Have the state bubble up through methods
 
 var GAME = [
 	{
@@ -80,40 +79,20 @@ Gametime.propTypes = {
 	gameday: React.PropTypes.string.isRequired
 }
 
-var Score = React.createClass({
-	propTypes: {
-		scoreboard: React.PropTypes.number.isRequired
-	},
 
-	getInitialState: function() {
-		return {
-			scoreboard: this.props.scoreboard
-		}
-	},
+function Score(props) {
+	return (
+		<section>
+			<button className="change-score" >+</button>
+			<h4 className="score">{props.scoreboard}</h4>
+			<button className="change-score" >-</button>
+		</section>
+	)
+}
 
-	incrementScore: function() {
-		this.setState ({
-			scoreboard: this.state.scoreboard+=1
-		})
-	},
-
-	decrementScore: function() {
-		this.setState ({
-			scoreboard: this.state.scoreboard-1
-		})
-	},
-
-	render: function() {
-		return (
-			<section>
-				<button className="change-score" onClick={this.incrementScore}>+</button>
-				<h4 className="score">{this.state.scoreboard}</h4>
-				<button className="change-score" onClick={this.decrementScore}>-</button>
-			</section>
-		)
-	}
-
-})
+Score.propTypes = {
+	scoreboard: React.PropTypes.number.isRequired
+}
 
 
 function TeamScoreBoard(props) {
@@ -148,38 +127,46 @@ SeriesScore.proptypes = {
 	seriesScore: React.PropTypes.string.isRequired
 }
 
-function Application(props) {
-	return (
-		<div>
-			{props.gameApp.map(function(gameParam){
-				return (
-					<main className="app-section" key={gameParam.id}>
-						<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay} />
-					 	<TeamScoreBoard team={gameParam.homeTeamName} score={gameParam.homeTeamScore} img={gameParam.homeTeamLogo} />
-					 	<TeamScoreBoard team={gameParam.awayTeamName} score={gameParam.awayTeamScore} img={gameParam.awayTeamLogo} />
-					 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
-					 </main>
-				)
-			})}
-		</div>
-	)
-}
+var Application = React.createClass ({
+	propTypes : {
+		initialGameStats: React.PropTypes.arrayOf(React.PropTypes.shape({
+			gameNum: React.PropTypes.string.isRequired,
+			gameDay: React.PropTypes.string.isRequired,
+			homeTeamName: React.PropTypes.string.isRequired,
+			homeTeamScore: React.PropTypes.number.isRequired,
+			homeTeamLogo: React.PropTypes.string.isRequired,
+			awayTeamName: React.PropTypes.string.isRequired,
+			awayTeamScore: React.PropTypes.number.isRequired,
+			awayTeamLogo: React.PropTypes.string.isRequired,
+			seriesScore: React.PropTypes.string.isRequired,
+		})).isRequired,
+	},
 
-Application.propTypes = {
-	gameApp: React.PropTypes.arrayOf(React.PropTypes.shape({
-		gameNum: React.PropTypes.string.isRequired,
-		gameDay: React.PropTypes.string.isRequired,
-		homeTeamName: React.PropTypes.string.isRequired,
-		homeTeamScore: React.PropTypes.number.isRequired,
-		homeTeamLogo: React.PropTypes.string.isRequired,
-		awayTeamName: React.PropTypes.string.isRequired,
-		awayTeamScore: React.PropTypes.number.isRequired,
-		awayTeamLogo: React.PropTypes.string.isRequired,
-		seriesScore: React.PropTypes.string.isRequired,
-	})).isRequired,
-}
+	getInitialState :  function() {
+		return {
+		initialGameStats : this.props.initialGameStats
+		}
+	},
+
+	render: function() {
+		return (
+			<section>
+				{this.state.initialGameStats.map(function(gameParam){
+					return (
+						<section className="app-section" key={gameParam.id}>
+							<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay} />
+						 	<TeamScoreBoard team={gameParam.homeTeamName} score={gameParam.homeTeamScore} img={gameParam.homeTeamLogo} />
+						 	<TeamScoreBoard team={gameParam.awayTeamName} score={gameParam.awayTeamScore} img={gameParam.awayTeamLogo} />
+						 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
+						 </section>
+					)
+				})}
+			</section>
+		)
+		
+	}
+})
 
 
-
-ReactDOM.render(<Application gameApp={ GAME } />, document.getElementById('container'));
+ReactDOM.render(<Application initialGameStats={ GAME } />, document.getElementById('container'));
 
