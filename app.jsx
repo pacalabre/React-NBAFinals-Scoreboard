@@ -101,7 +101,7 @@ function TeamScoreBoard(props) {
 			<img className="team-logo" src={props.img}  />
 			<section className="section-cle-score">
 				<h2 className="section-h2">{props.team}</h2>
-				<Score scoreboard={props.score} onScoreChange={ props.scoreChangeToState } />
+				<Score scoreboard={props.score} onScoreChange={ props.scoreChangeToStateProp } />
 			</section>
 		</section>
 	)
@@ -148,8 +148,8 @@ var Application = React.createClass ({
 		}
 	},
 
-	scoreChangeToState : function(amountToChange, index) {
-		console.log("the state changed yo!", amountToChange, index);
+	scoreChangeToStateFunc : function(amountToChange, index) {
+		console.log("amount to change = " + amountToChange +" index = " + index );
 	},
 
 	render: function() {
@@ -163,14 +163,14 @@ var Application = React.createClass ({
 						 		team={gameParam.homeTeamName} 
 						 		score={gameParam.homeTeamScore} 
 						 		img={gameParam.homeTeamLogo} 
-						 		scoreChangeToState={ function(passPropToFunc){this.scoreChangeToState(index, passPropToFunc)}.bind(this) }
-						 		/>
+						 		scoreChangeToStateProp={ function(passPropToFunc){this.scoreChangeToStateFunc(passPropToFunc, index)}.bind(this) }
+						 	/>
 						 	<TeamScoreBoard 
 						 		team={gameParam.awayTeamName} 
 						 		score={gameParam.awayTeamScore} 
 						 		img={gameParam.awayTeamLogo}
-						 		scoreChangeToState={function(passPropToFunc){this.scoreChangeToState(index, passPropToFunc)}.bind(this) } 
-						 		 />
+						 		scoreChangeToStateProp={function(passPropToFunc){this.scoreChangeToStateFunc(passPropToFunc, index)}.bind(this) } 
+						 	/>
 						 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
 						 </section>
 					)
