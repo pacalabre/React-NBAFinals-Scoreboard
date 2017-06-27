@@ -166,11 +166,11 @@ var Application = React.createClass ({
 	},
 
 	compareScoresFunc: function(index) {
-		
-		// console.log(this.state.gameStats.length)
 		var gswScore = this.state.gameStats[index].homeTeamScore;
-		// console.log(this.state.gameStats[index].homeTeamScore);
 		var cleScore = this.state.gameStats[index].awayTeamScore;
+		var whatsTheSeriesScore;
+		var seriesScoreToString;
+
 		if( gswScore > cleScore) {
 			gswGamesWon++;
 		} else if (cleScore > gswScore) {
@@ -179,14 +179,20 @@ var Application = React.createClass ({
 			console.log("A game is tied");
 		}
 
-		 this.whoWonGame();
+		whatsTheSeriesScore = "CLE " + cleGamesWon + " GSW "+ gswGamesWon;
+		seriesScoreToString = whatsTheSeriesScore.toString();
+
+		 this.whoWonGame(whatsTheSeriesScore, index)
 
 	},
 
-	whoWonGame: function(){
-		var whatsTheSeriesScore = "CLE " + cleGamesWon + " GSW "+ gswGamesWon;
-		var seriesScoreToString = whatsTheSeriesScore.toString();
-		console.log(whatsTheSeriesScore);
+	whoWonGame: function(string, index) {
+		
+			// this.state.gameStats[i].seriesScore = seriesScoreToString;
+			
+			this.state.gameStats[index].seriesScore = string;
+			console.log(string);
+		
 	},
 
 	resetSeries: function() {
