@@ -91,7 +91,8 @@ function Score(props) {
 }
 
 Score.propTypes = {
-	scoreboard: React.PropTypes.number.isRequired
+	scoreboard: React.PropTypes.number.isRequired,
+	onScoreChange: React.PropTypes.func.isRequired
 }
 
 
@@ -110,7 +111,8 @@ function TeamScoreBoard(props) {
 TeamScoreBoard.proptypes = {
 	img: React.PropTypes.string.isRequired,
 	team: React.PropTypes.string.isRequired,
-	score: React.PropTypes.string.isRequired
+	score: React.PropTypes.string.isRequired,
+	scoreChangeToStateProp: React.PropTypes.func.isRequired
 }
 
 function SeriesScore(props) {
@@ -144,18 +146,27 @@ var Application = React.createClass ({
 
 	getInitialState :  function() {
 		return {
-		initialGameStats : this.props.initialGameStats
+			gameStats : this.props.initialGameStats
 		}
 	},
 
-	scoreChangeToStateFunc : function(amountToChange, index) {
+	changeStateOfHomeScoreFunc: function(amountToChange, index) {
 		console.log("amount to change = " + amountToChange +" index = " + index );
+		this.state.gameStats[index].homeTeamScore += amountToChange;
+		this.setState(this.state);
+
+	},
+	changeStateOfAwayScoreFunc: function(amountToChange, index) {
+		console.log("amount to change = " + amountToChange +" index = " + index );
+		this.state.gameStats[index].awayTeamScore += amountToChange;
+		this.setState(this.state);
+
 	},
 
 	render: function() {
 		return (
 			<section>
-				{this.state.initialGameStats.map(function(gameParam, index){
+				{this.state.gameStats.map(function(gameParam, index){
 					return (
 						<section className="app-section" key={gameParam.id}>
 							<Gametime game={gameParam.gameNum} gameday={gameParam.gameDay} />
@@ -163,13 +174,13 @@ var Application = React.createClass ({
 						 		team={gameParam.homeTeamName} 
 						 		score={gameParam.homeTeamScore} 
 						 		img={gameParam.homeTeamLogo} 
-						 		scoreChangeToStateProp={ function(passPropToFunc){this.scoreChangeToStateFunc(passPropToFunc, index)}.bind(this) }
+						 		scoreChangeToStateProp={ function(passPropToFunc){this.changeStateOfHomeScoreFunc(passPropToFunc, index)}.bind(this) }
 						 	/>
 						 	<TeamScoreBoard 
 						 		team={gameParam.awayTeamName} 
 						 		score={gameParam.awayTeamScore} 
 						 		img={gameParam.awayTeamLogo}
-						 		scoreChangeToStateProp={function(passPropToFunc){this.scoreChangeToStateFunc(passPropToFunc, index)}.bind(this) } 
+						 		scoreChangeToStateProp={function(passPropToFunc){this.changeStateOfAwayScoreFunc(passPropToFunc, index)}.bind(this) } 
 						 	/>
 						 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
 						 </section>
