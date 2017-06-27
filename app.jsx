@@ -179,7 +179,7 @@ var Application = React.createClass ({
 			console.log("A game is tied");
 		}
 
-		whatsTheSeriesScore = "CLE " + cleGamesWon + " GSW "+ gswGamesWon;
+		whatsTheSeriesScore = "CLE " + cleGamesWon +" Games" + " GSW "+ gswGamesWon;
 		seriesScoreToString = whatsTheSeriesScore.toString();
 
 		 this.whoWonGame(whatsTheSeriesScore, index)
