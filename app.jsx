@@ -1,6 +1,5 @@
 // Next Steps:
-// Move the state to the application 
-// Have the state bubble up through methods
+// Calculate Series Score based on game scores
 
 var GAME = [
 	{
@@ -64,6 +63,9 @@ var GAME = [
 		seriesScore: "CLE 1 Games GSW 4"
 	},
 ]
+
+var cleGamesWon = 0;
+var gswGamesWon = 0;
 
 function Gametime(props) {
 	return (
@@ -163,6 +165,35 @@ var Application = React.createClass ({
 
 	},
 
+	compareScoresFunc: function(index) {
+		
+		// console.log(this.state.gameStats.length)
+		var gswScore = this.state.gameStats[index].homeTeamScore;
+		// console.log(this.state.gameStats[index].homeTeamScore);
+		var cleScore = this.state.gameStats[index].awayTeamScore;
+		if( gswScore > cleScore) {
+			gswGamesWon++;
+		} else if (cleScore > gswScore) {
+			cleGamesWon++
+		} else {
+			console.log("A game is tied");
+		}
+
+		 this.whoWonGame();
+
+	},
+
+	whoWonGame: function(){
+		var whatsTheSeriesScore = "CLE " + cleGamesWon + " GSW "+ gswGamesWon;
+		var seriesScoreToString = whatsTheSeriesScore.toString();
+		console.log(whatsTheSeriesScore);
+	},
+
+	resetSeries: function() {
+		cleGamesWon = 0;
+		gswGamesWon = 0;
+	},
+
 	render: function() {
 		return (
 			<section>
@@ -182,10 +213,12 @@ var Application = React.createClass ({
 						 		img={gameParam.awayTeamLogo}
 						 		scoreChangeToStateProp={function(passPropToFunc){this.changeStateOfAwayScoreFunc(passPropToFunc, index)}.bind(this) } 
 						 	/>
-						 	<SeriesScore timeleft="FINAL" seriesScore={gameParam.seriesScore} />
+						 	<SeriesScore timeleft="FINAL" compareScoresParam={this.compareScoresFunc(index)} seriesScore={gameParam.seriesScore} />
 						 </section>
 					)
-				}.bind(this))}
+				}.bind(this))}.then(function(){
+					this.resetSeries()
+				}
 			</section>
 		)
 		
