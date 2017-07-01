@@ -73,3 +73,43 @@ body {
 	clear: both;
 	color: #ecf0f1;
 }
+
+.chat-input-section,.chat-window {
+	margin: auto;
+	display: block;	
+}
+
+.chat-window {
+	background-color: white;
+	height: 300px;
+	width: 60%;
+}
+
+.chat-input, .chat-textarea {
+	display: block;
+	margin: 5px auto;
+}
+
+.chat-textarea {
+	width: 30%;
+	height: 100px;
+}
+
+.chat-label {
+	color: white;
+}
+
+.screen-name, .message {
+	display: inline-block;
+	padding: 5px;
+}
+
+.screen-name {
+	color: red;
+}
+
+.chat-input-section {
+	text-align: center;
+	margin: 20px 0px;
+	overflow: scroll;
+}

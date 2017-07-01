@@ -1,5 +1,7 @@
 // Next Steps:
-// Calculate Series Score based on game scores
+// Add mockup of chat functionality with props
+// add in state to chat
+// look into promise diaplaying on screen bug
 
 var GAME = [
 	{
@@ -62,6 +64,14 @@ var GAME = [
 		awayTeamLogo: "./images/cavs.png",
 		seriesScore: "CLE 1 Games GSW 4"
 	},
+]
+
+var chat = [
+	{
+		id: 1,
+		chatName: "",
+		message: ""
+	}
 ]
 
 var cleGamesWon = 0;
@@ -131,6 +141,43 @@ SeriesScore.proptypes = {
 	seriesScore: React.PropTypes.string.isRequired
 }
 
+
+function ChatBox(props) {
+	return (
+		<section>
+			<div className="chat-window">
+				<h5 className="screen-name">{props.screenName}</h5>
+				<h5 className="message">{props.message}</h5>
+			</div>
+		</section>
+		)
+}
+
+ChatBox.proptypes = {
+	screenName: React.PropTypes.string.isRequired,
+	message: React.PropTypes.string.isRequired
+}
+
+function ChatInput(props) {
+	return(
+		<section>
+			<ChatBox screenName="DaBulls23:" message="Good call on trading Rondo" />
+			<form className="chat-input-section">
+				<label className="chat-label">Screen Name</label>
+	 			<input className="chat-input" type="text" />
+	 			<label className="chat-label message">Message</label>
+	 			<textarea className="chat-textarea" type="text" />
+ 	 			<button>Submit</button>	
+ 	 		</form>
+		</section>
+	)
+}
+
+ChatInput.proptypes = {
+	screenName: React.PropTypes.string.isRequired,
+	newMessage: React.PropTypes.string.isRequired
+}
+
 var Application = React.createClass ({
 	propTypes : {
 		initialGameStats: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -181,18 +228,11 @@ var Application = React.createClass ({
 
 		whatsTheSeriesScore = "CLE " + cleGamesWon +" Games" + " GSW "+ gswGamesWon;
 		seriesScoreToString = whatsTheSeriesScore.toString();
-
-		 this.whoWonGame(whatsTheSeriesScore, index)
-
+		this.whoWonGame(whatsTheSeriesScore, index)
 	},
 
-	whoWonGame: function(string, index) {
-		
-			// this.state.gameStats[i].seriesScore = seriesScoreToString;
-			
+	whoWonGame: function(string, index) {			
 			this.state.gameStats[index].seriesScore = string;
-			console.log(string);
-		
 	},
 
 	resetSeries: function() {
@@ -225,6 +265,7 @@ var Application = React.createClass ({
 				}.bind(this))}.then(function(){
 					this.resetSeries()
 				}
+				<ChatInput />
 			</section>
 		)
 		
