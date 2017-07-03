@@ -66,7 +66,7 @@ var GAME = [
 	},
 ]
 
-var chat = [
+var CHAT = [
 	{
 		id: 1,
 		chatName: "",
@@ -147,6 +147,7 @@ function ChatBox(props) {
 		<section>
 			<div className="chat-window">
 				<h5 className="screen-name">{props.screenName}</h5>
+				<h5 className="screen-name">{function(){props.screenNameChatbox}}</h5>
 				<h5 className="message">{props.message}</h5>
 			</div>
 		</section>
@@ -195,7 +196,8 @@ var Application = React.createClass ({
 
 	getInitialState :  function() {
 		return {
-			gameStats : this.props.initialGameStats
+			gameStats : this.props.initialGameStats,
+			chat : this.props.chat
 		}
 	},
 
@@ -273,5 +275,5 @@ var Application = React.createClass ({
 })
 
 
-ReactDOM.render(<Application initialGameStats={ GAME } />, document.getElementById('container'));
+ReactDOM.render(<Application chat={ CHAT } initialGameStats={ GAME } />, document.getElementById('container'));
 
