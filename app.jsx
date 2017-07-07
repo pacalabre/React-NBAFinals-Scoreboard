@@ -69,11 +69,10 @@ var GAME = [
 var CHAT = [
 	{
 		id: 1,
-		chatName: "",
-		message: ""
-	}
+		message: "This is a close game"
+	},
 ]
-
+var nextChatId = 2;
 var cleGamesWon = 0;
 var gswGamesWon = 0;
 
@@ -155,27 +154,47 @@ function ChatBox(props) {
 }
 
 ChatBox.proptypes = {
-	screenName: React.PropTypes.string.isRequired,
 	message: React.PropTypes.string.isRequired
 }
 
-function ChatInput(props) {
-	return(
-		<section>
-			<ChatBox screenName="DaBulls23:" message="Good call on trading Rondo" />
-			<form className="chat-input-section">
-				<label className="chat-label">Screen Name</label>
-	 			<input className="chat-input" type="text" />
-	 			<label className="chat-label message">Message</label>
-	 			<textarea className="chat-textarea" type="text" />
- 	 			<button>Submit</button>	
- 	 		</form>
-		</section>
-	)
-}
+var ChatInput = React.createClass ({
+	PropTypes : {
+		message: React.PropTypes.string.isRequired
+	},
+
+	onChangeMessage: function(e) {
+		console.log(e, e.target.value);
+		this.setState({message: e.target.value})
+	},
+
+	onSubmitForm: function(e) {
+		e.preventDefault();
+		this.props.onAdd(this.state.message);
+		this.setState({message: ""})
+	},
+
+	getInitialState :  function() {
+		return {
+			message : this.props.message,
+		}
+	},
+
+	render: function (){
+		return (
+			<section>
+				<ChatBox screenName="You:" message="Good call on trading Rondo" />
+				<form onSubmit={ this.onSubmitForm } className="chat-input-section">
+		 			<label className="chat-label message">Message</label>
+		 			<textarea className="chat-textarea" type="text" value={this.state.message} onChange = {this.onChangeMessage} />
+	 	 			<input type="submit" value="Submit" />	
+	 	 		</form>
+			</section>
+		)
+	}
+})
+
 
 ChatInput.proptypes = {
-	screenName: React.PropTypes.string.isRequired,
 	newMessage: React.PropTypes.string.isRequired
 }
 
@@ -242,6 +261,17 @@ var Application = React.createClass ({
 		gswGamesWon = 0;
 	},
 
+	onMessageAdd: function(message) {
+		this.state.chat.push({
+			message: message,
+			id: nextChatId
+		})
+		this.setState(this.state);
+		nextChatId++;
+	},
+
+	
+
 	render: function() {
 		return (
 			<section>
@@ -267,7 +297,7 @@ var Application = React.createClass ({
 				}.bind(this))}.then(function(){
 					this.resetSeries()
 				}
-				<ChatInput />
+				<ChatInput onAdd={this.onMessageAdd}  />
 			</section>
 		)
 		
@@ -275,5 +305,5 @@ var Application = React.createClass ({
 })
 
 
-ReactDOM.render(<Application chat={ CHAT } initialGameStats={ GAME } />, document.getElementById('container'));
+ReactDOM.render(<Application chat={ CHAT }  initialGameStats={ GAME } />, document.getElementById('container'));
 
