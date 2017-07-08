@@ -1,5 +1,5 @@
 // Next Steps:
-// Add mockup of chat functionality with props
+
 // add in state to chat
 // look into promise diaplaying on screen bug
 
@@ -141,51 +141,40 @@ SeriesScore.proptypes = {
 }
 
 
-function ChatBox(props) {
-	return (
-		<section>
-			<div className="chat-window">
-				<h5 className="screen-name">{props.screenName}</h5>
-				<h5 className="screen-name">{function(){props.screenNameChatbox}}</h5>
-				<h5 className="message">{props.message}</h5>
-			</div>
-		</section>
-		)
-}
-
-ChatBox.proptypes = {
-	message: React.PropTypes.string.isRequired
-}
-
 var ChatInput = React.createClass ({
 	PropTypes : {
-		message: React.PropTypes.string.isRequired
-	},
-
-	onChangeMessage: function(e) {
-		console.log(e, e.target.value);
-		this.setState({message: e.target.value})
-	},
-
-	onSubmitForm: function(e) {
-		e.preventDefault();
-		this.props.onAdd(this.state.message);
-		this.setState({message: ""})
+		message: React.PropTypes.string.isRequired,
 	},
 
 	getInitialState :  function() {
 		return {
-			message : this.props.message,
+			message : "",
 		}
 	},
 
+	// onChangeMessage: function(e) {
+	// 	console.log(e, e.target.value);
+	// 	this.setState({message: e.target.value})
+	// },
+
+	// onSubmitForm: function(e) {
+	// 	e.preventDefault();
+	// 	this.props.onAdd(this.state.message);
+	// 	this.setState({message: ""})
+	// },
+
+	// showMessage: function(message) {
+	// 	message = this.message;
+	// },
+
+	
+
 	render: function (){
 		return (
-			<section>
-				<ChatBox screenName="You:" message="Good call on trading Rondo" />
-				<form onSubmit={ this.onSubmitForm } className="chat-input-section">
+			<section>	
+				<form className="chat-input-section">
 		 			<label className="chat-label message">Message</label>
-		 			<textarea className="chat-textarea" type="text" value={this.state.message} onChange = {this.onChangeMessage} />
+		 			<textarea className="chat-textarea" type="text"  />
 	 	 			<input type="submit" value="Submit" />	
 	 	 		</form>
 			</section>
@@ -195,7 +184,25 @@ var ChatInput = React.createClass ({
 
 
 ChatInput.proptypes = {
-	newMessage: React.PropTypes.string.isRequired
+	newMessage: React.PropTypes.string.isRequired,
+
+
+}
+
+function ChatBox(props) {
+	return (
+		<section>
+			<div className="chat-window">
+				<h5 className="screen-name">{props.screenName}</h5>
+				<h5 className="message">{props.message}</h5>
+			</div>
+			<ChatInput />
+		</section>
+		)
+}
+
+ChatBox.proptypes = {
+	message: React.PropTypes.string.isRequired
 }
 
 var Application = React.createClass ({
@@ -270,6 +277,11 @@ var Application = React.createClass ({
 		nextChatId++;
 	},
 
+	showMessage: function(message) {
+		// message = this.message;
+		console.log(message);
+	},
+
 	
 
 	render: function() {
@@ -297,7 +309,7 @@ var Application = React.createClass ({
 				}.bind(this))}.then(function(){
 					this.resetSeries()
 				}
-				<ChatInput onAdd={this.onMessageAdd}  />
+				<ChatBox  screenName="You: " message="Hey!" />
 			</section>
 		)
 		
